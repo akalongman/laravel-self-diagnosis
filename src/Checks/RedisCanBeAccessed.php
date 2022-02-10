@@ -2,8 +2,8 @@
 
 namespace BeyondCode\SelfDiagnosis\Checks;
 
-use Illuminate\Contracts\Redis\Factory as RedisFactory;
-use Illuminate\Redis\Connections\PhpRedisConnection;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Redis;
 
 class RedisCanBeAccessed implements Check
 {
@@ -29,14 +29,14 @@ class RedisCanBeAccessed implements Check
     public function check(array $config): bool
     {
         try {
-            if (array_get($config, 'default_connection', true)) {
+            if (Arr::get($config, 'default_connection', true)) {
                 if (!$this->testConnection()) {
                     $this->message = trans('self-diagnosis::checks.redis_can_be_accessed.message.default_cache');
                     return false;
                 }
             }
 
-            foreach (array_get($config, 'connections', []) as $connection) {
+            foreach (Arr::get($config, 'connections', []) as $connection) {
                 if (!$this->testConnection($connection)) {
                     $this->message = trans('self-diagnosis::checks.redis_can_be_accessed.message.named_cache', [
                         'name' => $connection,
@@ -73,12 +73,8 @@ class RedisCanBeAccessed implements Check
      */
     private function testConnection(string $name = null): bool
     {
-        $redis = app(RedisFactory::class);
-        $connection = $redis->connection($name);
-        // phpredis connects automatically
-        if (!$connection instanceof PhpRedisConnection) {
-            $connection->connect();
-        }
+        $connection = Redis::connection($name);
+        $connection->connect();
         return $connection->isConnected();
     }
 }
