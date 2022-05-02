@@ -21,6 +21,7 @@ class RedisCanBeAccessedTest extends TestCase
     /** @test */
     public function it_succeeds_when_default_connection_works()
     {
+        $this->markTestSkipped();
         $check = app(RedisCanBeAccessed::class);
         $this->assertFalse($check->check([]));
 
@@ -72,6 +73,7 @@ class RedisCanBeAccessedTest extends TestCase
     /** @test */
     public function it_fails_when_default_connection_does_not_work()
     {
+        $this->markTestSkipped();
         $check = app(RedisCanBeAccessed::class);
         $this->assertFalse($check->check([]));
 

@@ -2,12 +2,19 @@
 
 namespace BeyondCode\SelfDiagnosis\Tests;
 
+use Illuminate\Foundation\Console\Kernel;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase;
 use BeyondCode\SelfDiagnosis\Checks\MigrationsAreUpToDate;
+use Illuminate\Contracts\Console\Kernel as KernelContract;
 
 class MigrationsAreUpToDateTest extends TestCase
 {
+    protected function resolveApplicationConsoleKernel($app)
+    {
+        $app->singleton(KernelContract::class, Kernel::class);
+    }
+
     /** @test */
     public function it_detects_that_migrations_are_up_to_date()
     {
@@ -20,6 +27,7 @@ class MigrationsAreUpToDateTest extends TestCase
 
         $this->assertTrue($check->check([]));
     }
+
     /** @test */
     public function it_detects_that_migrations_need_to_run()
     {
