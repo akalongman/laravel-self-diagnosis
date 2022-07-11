@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace BeyondCode\SelfDiagnosis\Checks;
 
-use BeyondCode\SelfDiagnosis\Checks\Check;
+use BeyondCode\SelfDiagnosis\Checks\Traits\ParsesNumValues;
 use BeyondCode\SelfDiagnosis\Exceptions\InvalidConfigurationException;
 use Illuminate\Support\Arr;
-use Longman\LaravelLodash\SelfDiagnosis\ParsesNumValues;
 
 use function count;
 use function implode;

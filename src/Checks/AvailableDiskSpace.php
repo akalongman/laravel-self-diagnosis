@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BeyondCode\SelfDiagnosis\Checks;
 
+use BeyondCode\SelfDiagnosis\Checks\Traits\ParsesNumValues;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use Longman\LaravelLodash\SelfDiagnosis\ParsesNumValues;
 
 use function count;
 use function disk_free_space;
