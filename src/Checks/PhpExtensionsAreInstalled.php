@@ -84,6 +84,7 @@ class PhpExtensionsAreInstalled implements Check
                 $extensions[] = Str::replaceFirst(self::EXT, '', $extension);
             }
         }
+
         return array_unique($extensions);
     }
 

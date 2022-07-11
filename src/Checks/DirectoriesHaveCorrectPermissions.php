@@ -2,9 +2,9 @@
 
 namespace BeyondCode\SelfDiagnosis\Checks;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Filesystem\Filesystem;
 
 class DirectoriesHaveCorrectPermissions implements Check
 {
@@ -16,6 +16,7 @@ class DirectoriesHaveCorrectPermissions implements Check
 
     /**
      * DirectoriesHaveCorrectPermissions constructor.
+     *
      * @param Filesystem $filesystem
      */
     public function __construct(Filesystem $filesystem)

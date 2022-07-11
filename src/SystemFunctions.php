@@ -6,6 +6,7 @@ namespace BeyondCode\SelfDiagnosis;
  * Proxy class for system functions.
  *
  * Class SystemFunctions
+ *
  * @package BeyondCode\SelfDiagnosis
  */
 class SystemFunctions

@@ -54,24 +54,27 @@ class SupervisorProgramsAreRunning implements Check
             return true;
         }
 
-        if (!$this->systemFunctions->isFunctionAvailable('shell_exec')) {
+        if (! $this->systemFunctions->isFunctionAvailable('shell_exec')) {
             $this->message = trans('self-diagnosis::checks.supervisor_programs_are_running.message.shell_exec_not_available');
+
             return false;
         }
 
         if ($this->systemFunctions->isWindowsOperatingSystem()) {
             $this->message = trans('self-diagnosis::checks.supervisor_programs_are_running.message.cannot_run_on_windows');
+
             return false;
         }
 
         $programs = $this->systemFunctions->callShellExec('supervisorctl status');
         if ($programs === null || $programs === '') {
             $this->message = trans('self-diagnosis::checks.supervisor_programs_are_running.message.supervisor_command_not_available');
+
             return false;
         }
 
         $restartedWithin = Arr::get($config, 'restarted_within', 0);
-        $programs = explode("\n" , $programs);
+        $programs = explode("\n", $programs);
         foreach ($programs as $program) {
             /*
              * Capture groups of regex:

@@ -51,23 +51,26 @@ class LocalesAreInstalled implements Check
             return true;
         }
 
-        if (!$this->systemFunctions->isFunctionAvailable('shell_exec')) {
+        if (! $this->systemFunctions->isFunctionAvailable('shell_exec')) {
             $this->message = trans('self-diagnosis::checks.locales_are_installed.message.shell_exec_not_available');
+
             return false;
         }
 
         if ($this->systemFunctions->isWindowsOperatingSystem()) {
             $this->message = trans('self-diagnosis::checks.locales_are_installed.message.cannot_run_on_windows');
+
             return false;
         }
 
         $locales = $this->systemFunctions->callShellExec('locale -a');
         if ($locales === null || $locales === '') {
             $this->message = trans('self-diagnosis::checks.locales_are_installed.message.locale_command_not_available');
+
             return false;
         }
 
-        $locales = explode("\n" , $locales);
+        $locales = explode("\n", $locales);
 
         $this->missingLocales = $this->missingLocales->reject(function ($loc) use ($locales) {
             return in_array($loc, $locales);

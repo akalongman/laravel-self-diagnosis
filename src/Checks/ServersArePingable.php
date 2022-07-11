@@ -67,8 +67,8 @@ class ServersArePingable implements Check
     {
         return $this->notReachableServers->map(function (Server $server) {
             return trans('self-diagnosis::checks.servers_are_pingable.message', [
-                'host' => $server->getHost(),
-                'port' => $server->getPort() ?? 'n/a',
+                'host'    => $server->getHost(),
+                'port'    => $server->getPort() ?? 'n/a',
                 'timeout' => $server->getTimeout(),
             ]);
         })->implode(PHP_EOL);
@@ -88,10 +88,10 @@ class ServersArePingable implements Check
 
         foreach ($servers as $server) {
             if (is_array($server)) {
-                if (!empty(Arr::except($server, ['host', 'port', 'timeout']))) {
+                if (! empty(Arr::except($server, ['host', 'port', 'timeout']))) {
                     throw new InvalidConfigurationException('Servers in array notation may only contain a host, port and timeout parameter.');
                 }
-                if (!Arr::has($server, 'host')) {
+                if (! Arr::has($server, 'host')) {
                     throw new InvalidConfigurationException('For servers in array notation, the host parameter is required.');
                 }
 
@@ -100,7 +100,7 @@ class ServersArePingable implements Check
                 $timeout = Arr::get($server, 'timeout', self::DEFAULT_TIMEOUT);
 
                 $result->push(new Server($host, $port, $timeout));
-            } else if (is_string($server)) {
+            } elseif (is_string($server)) {
                 $result->push(new Server($server, null, self::DEFAULT_TIMEOUT));
             } else {
                 throw new InvalidConfigurationException('The server configuration may only contain arrays or strings.');

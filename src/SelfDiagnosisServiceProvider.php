@@ -11,16 +11,16 @@ class SelfDiagnosisServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../translations', 'self-diagnosis');
-        
+        $this->loadTranslationsFrom(__DIR__ . '/../translations', 'self-diagnosis');
+
         if ($this->app->runningInConsole()) {
 
             $this->publishes([
-                __DIR__.'/../translations' => resource_path('lang/vendor/self-diagnosis'),
+                __DIR__ . '/../translations' => resource_path('lang/vendor/self-diagnosis'),
             ], 'translations');
 
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('self-diagnosis.php'),
+                __DIR__ . '/../config/config.php' => config_path('self-diagnosis.php'),
             ], 'config');
         }
     }
@@ -30,7 +30,7 @@ class SelfDiagnosisServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'self-diagnosis');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'self-diagnosis');
 
         $this->app->bind('command.selfdiagnosis', SelfDiagnosisCommand::class);
 

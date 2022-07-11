@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BeyondCode\SelfDiagnosis\Checks;
 
-use BeyondCode\SelfDiagnosis\Checks\Check;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 
 use function collect;

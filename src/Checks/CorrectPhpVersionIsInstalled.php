@@ -2,8 +2,8 @@
 
 namespace BeyondCode\SelfDiagnosis\Checks;
 
-use Illuminate\Filesystem\Filesystem;
 use Composer\Semver\Semver;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 
 class CorrectPhpVersionIsInstalled implements Check
@@ -31,8 +31,8 @@ class CorrectPhpVersionIsInstalled implements Check
      * Perform the actual verification of this check.
      *
      * @param array $config
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @return bool
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function check(array $config): bool
     {
@@ -48,14 +48,14 @@ class CorrectPhpVersionIsInstalled implements Check
      * The error message to display in case the check does not pass.
      *
      * @param array $config
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function message(array $config): string
     {
         return trans('self-diagnosis::checks.correct_php_version_is_installed.message', [
             'required' => $this->getRequiredPhpConstraint(),
-            'used' => phpversion(),
+            'used'     => phpversion(),
         ]);
     }
 
@@ -66,6 +66,7 @@ class CorrectPhpVersionIsInstalled implements Check
     public function getRequiredPhpConstraint()
     {
         $composer = json_decode($this->filesystem->get(base_path('composer.json')), true);
+
         return Arr::get($composer, 'require.php');
     }
 }

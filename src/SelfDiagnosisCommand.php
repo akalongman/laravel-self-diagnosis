@@ -2,8 +2,8 @@
 
 namespace BeyondCode\SelfDiagnosis;
 
-use Illuminate\Console\Command;
 use BeyondCode\SelfDiagnosis\Checks\Check;
+use Illuminate\Console\Command;
 
 class SelfDiagnosisCommand extends Command
 {
@@ -41,12 +41,14 @@ class SelfDiagnosisCommand extends Command
             $this->error(trans('self-diagnosis::commands.self_diagnosis.failed_checks'));
 
             foreach ($this->messages as $message) {
-                $this->output->writeln('<fg=red>'.$message.'</fg=red>');
+                $this->output->writeln('<fg=red>' . $message . '</fg=red>');
                 $this->output->writeln('');
             }
+
             return 1; // Any other return code then 0 means exit with error
         }
         $this->info(trans('self-diagnosis::commands.self_diagnosis.success'));
+
         return 0;
     }
 
@@ -56,7 +58,7 @@ class SelfDiagnosisCommand extends Command
         $current = 1;
 
         $this->output->writeln('|-------------------------------------');
-        $this->output->writeln('| '.$title);
+        $this->output->writeln('| ' . $title);
         $this->output->writeln('|-------------------------------------');
 
         foreach ($checks as $check => $config) {
@@ -69,8 +71,8 @@ class SelfDiagnosisCommand extends Command
 
             $this->output->write(trans('self-diagnosis::commands.self_diagnosis.running_check', [
                 'current' => $current,
-                'max' => $max,
-                'name' => $checkClass->name($config),
+                'max'     => $max,
+                'name'    => $checkClass->name($config),
             ]));
 
             $this->runCheck($checkClass, $config);

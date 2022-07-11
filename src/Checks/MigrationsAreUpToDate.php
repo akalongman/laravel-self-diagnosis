@@ -30,10 +30,12 @@ class MigrationsAreUpToDate implements Check
         try {
             Artisan::call('migrate', ['--pretend' => 'true', '--force' => 'true']);
             $output = Artisan::output();
+
             return strstr($output, 'Nothing to migrate.');
         } catch (\PDOException $e) {
             $this->databaseError = $e->getMessage();
         }
+
         return false;
     }
 
@@ -50,6 +52,7 @@ class MigrationsAreUpToDate implements Check
                 'reason' => $this->databaseError,
             ]);
         }
+
         return trans('self-diagnosis::checks.migrations_are_up_to_date.message.need_to_migrate');
     }
 }

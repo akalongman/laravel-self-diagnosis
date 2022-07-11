@@ -41,6 +41,7 @@ class DatabaseCanBeAccessed implements Check
         } catch (\Exception $e) {
             $this->message = $e->getMessage();
         }
+
         return false;
     }
 
