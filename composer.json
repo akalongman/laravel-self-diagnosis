@@ -19,7 +19,7 @@
         "php": ">=8.0.2",
         "composer/semver": "^3.2",
         "geerlingguy/ping": "^1.2",
-        "illuminate/support": "^9.0",
+        "illuminate/support": "^8.0|^9.0",
         "vlucas/phpdotenv": "^5.0"
     },
     "require-dev": {
