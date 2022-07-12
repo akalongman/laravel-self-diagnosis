@@ -2,7 +2,7 @@
 
 namespace BeyondCode\SelfDiagnosis;
 
-use function str_replace;
+use function parse_url;
 
 /**
  * DTO class for a server used by the ping check.
@@ -11,18 +11,15 @@ use function str_replace;
  */
 class Server
 {
-    /** @var string */
-    protected $host;
-
-    /** @var int|null */
-    protected $port;
-
-    /** @var int */
-    protected $timeout;
+    protected string $host;
+    protected ?int $port;
+    protected int $timeout;
 
     public function __construct(string $host, ?int $port, int $timeout)
     {
-        $this->host = str_replace(['http://', 'https://'], '', $host);
+        $parsed = parse_url($host);
+
+        $this->host = $parsed['host'] ?? $parsed['path'];
         $this->port = $port;
         $this->timeout = $timeout;
     }
