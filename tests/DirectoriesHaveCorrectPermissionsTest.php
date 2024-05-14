@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Illuminate\Filesystem\Filesystem;
-use Orchestra\Testbench\TestCase;
 use BeyondCode\SelfDiagnosis\Checks\DirectoriesHaveCorrectPermissions;
+use Illuminate\Filesystem\Filesystem;
+use Mockery;
+use Orchestra\Testbench\TestCase;
 
 class DirectoriesHaveCorrectPermissionsTest extends TestCase
 {
@@ -18,7 +21,7 @@ class DirectoriesHaveCorrectPermissionsTest extends TestCase
             ],
         ];
 
-        $filesystem = \Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class);
 
         $filesystem->shouldReceive('isWritable')
             ->andReturn(false);
@@ -28,7 +31,7 @@ class DirectoriesHaveCorrectPermissionsTest extends TestCase
         $this->assertFalse($check->check($config));
 
 
-        $filesystem = \Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class);
 
         $filesystem->shouldReceive('isWritable')
             ->andReturn(true);

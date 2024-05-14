@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Illuminate\Filesystem\Filesystem;
 
 class EnvFileExists implements Check
 {
-
-    /** @var Filesystem */
+    /** @var \Illuminate\Filesystem\Filesystem */
     private $filesystem;
 
     public function __construct(Filesystem $filesystem)

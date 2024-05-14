@@ -1,13 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Dotenv\Dotenv;
+use Dotenv\Environment\FactoryInterface;
 use Illuminate\Support\Collection;
+
+use function interface_exists;
+use function method_exists;
+
+use const PHP_EOL;
 
 class ExampleEnvironmentVariablesAreSet implements Check
 {
-    /** @var Collection */
+    /** @var \Illuminate\Support\Collection */
     private $envVariables;
 
     /**
@@ -36,7 +44,7 @@ class ExampleEnvironmentVariablesAreSet implements Check
             return $this->checkForDotEnvV4();
         }
 
-        if (interface_exists(\Dotenv\Environment\FactoryInterface::class)) {
+        if (interface_exists(FactoryInterface::class)) {
             $examples = Dotenv::create(base_path(), '.env.example');
             $actual = Dotenv::create(base_path(), '.env');
         } else {
@@ -51,6 +59,19 @@ class ExampleEnvironmentVariablesAreSet implements Check
             ->diff($actual->getEnvironmentVariableNames());
 
         return $this->envVariables->isEmpty();
+    }
+
+    /**
+     * The error message to display in case the check does not pass.
+     *
+     * @param array $config
+     * @return string
+     */
+    public function message(array $config): string
+    {
+        return trans('self-diagnosis::checks.example_environment_variables_are_set.message', [
+            'variables' => $this->envVariables->implode(PHP_EOL),
+        ]);
     }
 
     /**
@@ -85,18 +106,5 @@ class ExampleEnvironmentVariablesAreSet implements Check
             ->keys();
 
         return $this->envVariables->isEmpty();
-    }
-
-    /**
-     * The error message to display in case the check does not pass.
-     *
-     * @param array $config
-     * @return string
-     */
-    public function message(array $config): string
-    {
-        return trans('self-diagnosis::checks.example_environment_variables_are_set.message', [
-            'variables' => $this->envVariables->implode(PHP_EOL),
-        ]);
     }
 }

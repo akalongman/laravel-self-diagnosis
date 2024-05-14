@@ -1,13 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis;
+
+use function ini_get;
+use function is_callable;
+use function shell_exec;
+use function stripos;
+use function strtoupper;
+use function substr;
+
+use const PHP_OS;
 
 /**
  * Proxy class for system functions.
  *
  * Class SystemFunctions
- *
- * @package BeyondCode\SelfDiagnosis
  */
 class SystemFunctions
 {
@@ -15,7 +24,7 @@ class SystemFunctions
      * Performs a shell_exec call. Acts as proxy.
      *
      * @param string $command
-     * @return null|string
+     * @return string|null
      */
     public function callShellExec(string $command): ?string
     {
@@ -30,7 +39,7 @@ class SystemFunctions
      */
     public function isFunctionAvailable(string $function): bool
     {
-        return is_callable($function) && false === stripos(ini_get('disable_functions'), $function);
+        return is_callable($function) && stripos(ini_get('disable_functions'), $function) === false;
     }
 
     /**

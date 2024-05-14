@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis;
 
 use function parse_url;
 
 /**
  * DTO class for a server used by the ping check.
- *
- * @package BeyondCode\SelfDiagnosis
  */
 class Server
 {

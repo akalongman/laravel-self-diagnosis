@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Illuminate\Support\Facades\DB;
-use Orchestra\Testbench\TestCase;
 use BeyondCode\SelfDiagnosis\Checks\DatabaseCanBeAccessed;
+use Illuminate\Database\Connection;
+use Illuminate\Support\Facades\DB;
+use Mockery;
+use Orchestra\Testbench\TestCase;
 
 class DatabaseCanBeAccessedTest extends TestCase
 {
@@ -14,7 +18,7 @@ class DatabaseCanBeAccessedTest extends TestCase
         $check = app(DatabaseCanBeAccessed::class);
         $this->assertFalse($check->check([]));
 
-        $mock = \Mockery::mock(\Illuminate\Database\Connection::class);
+        $mock = Mockery::mock(Connection::class);
         $mock->shouldReceive('getPdo');
 
         DB::shouldReceive('connection')->andReturn($mock);

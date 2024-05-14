@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Orchestra\Testbench\TestCase;
 use BeyondCode\SelfDiagnosis\Checks\AppKeyIsSet;
+use Orchestra\Testbench\TestCase;
 
 class AppKeyIsSetTest extends TestCase
 {

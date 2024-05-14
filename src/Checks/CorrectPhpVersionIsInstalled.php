@@ -1,14 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Composer\Semver\Semver;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 
+use function json_decode;
+use function phpversion;
+
+use const PHP_MAJOR_VERSION;
+use const PHP_MINOR_VERSION;
+use const PHP_RELEASE_VERSION;
+
 class CorrectPhpVersionIsInstalled implements Check
 {
-    /** @var Filesystem */
+    /** @var \Illuminate\Filesystem\Filesystem */
     private $filesystem;
 
     public function __construct(Filesystem $filesystem)
@@ -40,7 +49,7 @@ class CorrectPhpVersionIsInstalled implements Check
         // that conflicts with the semver check
         return Semver::satisfies(
             PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION,
-            $this->getRequiredPhpConstraint()
+            $this->getRequiredPhpConstraint(),
         );
     }
 

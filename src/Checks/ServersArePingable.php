@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use BeyondCode\SelfDiagnosis\Exceptions\InvalidConfigurationException;
@@ -8,11 +10,16 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use JJG\Ping;
 
+use function is_array;
+use function is_string;
+
+use const PHP_EOL;
+
 class ServersArePingable implements Check
 {
     protected const DEFAULT_TIMEOUT = 5;
 
-    /** @var Collection */
+    /** @var \Illuminate\Support\Collection */
     protected $notReachableServers;
 
     /**
@@ -31,7 +38,7 @@ class ServersArePingable implements Check
      *
      * @param array $config
      * @return bool
-     * @throws InvalidConfigurationException
+     * @throws \BeyondCode\SelfDiagnosis\Exceptions\InvalidConfigurationException
      */
     public function check(array $config): bool
     {
@@ -40,7 +47,7 @@ class ServersArePingable implements Check
             return true;
         }
 
-        $this->notReachableServers = $this->notReachableServers->reject(function (Server $server) {
+        $this->notReachableServers = $this->notReachableServers->reject(static function (Server $server) {
             $ping = new Ping($server->getHost());
             $ping->setPort($server->getPort());
             $ping->setTimeout($server->getTimeout());
@@ -65,7 +72,7 @@ class ServersArePingable implements Check
      */
     public function message(array $config): string
     {
-        return $this->notReachableServers->map(function (Server $server) {
+        return $this->notReachableServers->map(static function (Server $server) {
             return trans('self-diagnosis::checks.servers_are_pingable.message', [
                 'host'    => $server->getHost(),
                 'port'    => $server->getPort() ?? 'n/a',
@@ -79,8 +86,8 @@ class ServersArePingable implements Check
      * Unifies the format for the resulting collection.
      *
      * @param array $servers
-     * @return Collection
-     * @throws InvalidConfigurationException
+     * @return \Illuminate\Support\Collection
+     * @throws \BeyondCode\SelfDiagnosis\Exceptions\InvalidConfigurationException
      */
     private function parseConfiguredServers(array $servers): Collection
     {

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
+use BeyondCode\SelfDiagnosis\Checks\SupervisorProgramsAreRunning;
 use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
 use BeyondCode\SelfDiagnosis\SystemFunctions;
 use Orchestra\Testbench\TestCase;
-use BeyondCode\SelfDiagnosis\Checks\SupervisorProgramsAreRunning;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class SupervisorProgramsAreRunningTest extends TestCase
 {
@@ -20,7 +21,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
     /** @test */
     public function it_succeeds_when_no_programs_need_to_run()
     {
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
 
         $check = new SupervisorProgramsAreRunning($systemFunctionsMock);
@@ -35,7 +36,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
         $config = ['programs' => ['process-1', 'process-2']];
         $supervisorStatus = "process-1                          RUNNING   pid 3004, uptime 0:01:23\nprocess-2                          RUNNING   pid 3005, uptime 0:01:23";
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -64,7 +65,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
         ];
         $supervisorStatus = "process-1                          RUNNING   pid 3004, uptime 0:01:23\nprocess-2                          RUNNING   pid 3005, uptime 0:05:00";
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -89,7 +90,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
     {
         $config = ['programs' => ['process-1', 'process-2']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -108,7 +109,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
     {
         $config = ['programs' => ['process-1', 'process-2']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -130,7 +131,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
     {
         $config = ['programs' => ['process-1', 'process-2']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -157,7 +158,7 @@ class SupervisorProgramsAreRunningTest extends TestCase
         $config = ['programs' => ['process-1', 'process-2', 'process-3']];
         $supervisorStatus = "process-1                          RUNNING   pid 3004, uptime 0:01:23\nprocess-2                      STOPPED   Jul 12 03:37 PM";
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -185,9 +186,9 @@ class SupervisorProgramsAreRunningTest extends TestCase
             'programs' => ['process-1'],
             'restarted_within' => 300,
         ];
-        $supervisorStatus = "process-1                          RUNNING   pid 3004, uptime 0:05:01";
+        $supervisorStatus = 'process-1                          RUNNING   pid 3004, uptime 0:05:01';
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')

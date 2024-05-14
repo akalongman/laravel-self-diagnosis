@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Orchestra\Testbench\TestCase;
 use BeyondCode\SelfDiagnosis\Checks\CorrectPhpVersionIsInstalled;
 use Illuminate\Filesystem\Filesystem;
+use Mockery;
+use Orchestra\Testbench\TestCase;
+
+use function file_get_contents;
+use function str_replace;
 
 class CorrectPhpVersionIsInstalledTest extends TestCase
 {
@@ -22,7 +28,7 @@ class CorrectPhpVersionIsInstalledTest extends TestCase
     public function it_detects_php_version_to_low()
     {
 
-        $fileSystemMock = \Mockery::mock(Filesystem::class);
+        $fileSystemMock = Mockery::mock(Filesystem::class);
 
         $data = file_get_contents(__DIR__ . '/fixtures/composer.json');
 
@@ -39,7 +45,7 @@ class CorrectPhpVersionIsInstalledTest extends TestCase
     /** @test */
     public function it_detects_php_version_to_high()
     {
-        $fileSystemMock = \Mockery::mock(Filesystem::class);
+        $fileSystemMock = Mockery::mock(Filesystem::class);
 
         $data = file_get_contents(__DIR__ . '/fixtures/composer.json');
 
@@ -56,7 +62,7 @@ class CorrectPhpVersionIsInstalledTest extends TestCase
     /** @test */
     public function it_accepts_version_with_asterix()
     {
-        $fileSystemMock = \Mockery::mock(Filesystem::class);
+        $fileSystemMock = Mockery::mock(Filesystem::class);
 
         $data = file_get_contents(__DIR__ . '/fixtures/composer.json');
 

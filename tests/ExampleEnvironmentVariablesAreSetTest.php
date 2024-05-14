@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Orchestra\Testbench\TestCase;
-use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
 use BeyondCode\SelfDiagnosis\Checks\ExampleEnvironmentVariablesAreSet;
+use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
+use Orchestra\Testbench\TestCase;
+
+use const PHP_EOL;
 
 class ExampleEnvironmentVariablesAreSetTest extends TestCase
 {
@@ -23,6 +27,6 @@ class ExampleEnvironmentVariablesAreSetTest extends TestCase
         $check = new ExampleEnvironmentVariablesAreSet();
 
         $this->assertFalse($check->check([]));
-        $this->assertSame('These environment variables are missing in your .env file, but are defined in your .env.example:'.PHP_EOL.'KEY_TWO', $check->message([]));
+        $this->assertSame('These environment variables are missing in your .env file, but are defined in your .env.example:' . PHP_EOL . 'KEY_TWO', $check->message([]));
     }
 }

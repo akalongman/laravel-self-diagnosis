@@ -1,23 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+use const PHP_EOL;
+
 class DirectoriesHaveCorrectPermissions implements Check
 {
-    /** @var Filesystem */
+    /** @var \Illuminate\Filesystem\Filesystem */
     private $filesystem;
 
-    /** @var Collection */
+    /** @var \Illuminate\Support\Collection */
     private $paths;
 
     /**
      * DirectoriesHaveCorrectPermissions constructor.
      *
-     * @param Filesystem $filesystem
+     * @param \Illuminate\Filesystem\Filesystem $filesystem
      */
     public function __construct(Filesystem $filesystem)
     {

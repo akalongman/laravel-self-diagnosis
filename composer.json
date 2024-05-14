@@ -25,6 +25,7 @@
     "require-dev": {
         "larapack/dd": "^1.0",
         "laravel/horizon": "^5.9",
+        "longman/php-code-style": "^10.1",
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^9.0",
         "phpunit/phpunit": "^11.0"
@@ -41,10 +42,15 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "phpcs": "./vendor/bin/phpcs --standard=phpcs.xml -spn --encoding=utf-8 src/ tests/ --report-width=150",
+        "phpcbf": "./vendor/bin/phpcbf --standard=phpcs.xml -spn --encoding=utf-8 src/ tests/ --report-width=150"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
         "laravel": {

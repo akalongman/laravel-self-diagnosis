@@ -1,26 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis;
 
-class Composer extends \Illuminate\Support\Composer
+use Illuminate\Support\Composer as BaseComposer;
+
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function explode;
+
+class Composer extends BaseComposer
 {
-    public function installDryRun(string $options = null)
+    public function installDryRun(?string $options = null): string
     {
         $composer = $this->findComposer();
 
         $command = array_merge(
-            (array) $composer,
+            $composer,
             ['install', '--dry-run'],
-            array_filter(array_map('trim', explode(' ', $options)))
+            array_filter(array_map('trim', explode(' ', $options))),
         );
 
-        if (is_array($composer)) {
-            $process = $this->getProcess($command);
-        } else {
-            $process = $this->getProcess();
-            $process->setCommandLine(trim(implode(' ', $command)));
-        }
-
+        $process = $this->getProcess($command);
         $process->run();
 
         return $process->getOutput() . $process->getErrorOutput();

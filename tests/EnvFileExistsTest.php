@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Orchestra\Testbench\TestCase;
-use Illuminate\Filesystem\Filesystem;
 use BeyondCode\SelfDiagnosis\Checks\EnvFileExists;
+use Illuminate\Filesystem\Filesystem;
+use Mockery;
+use Orchestra\Testbench\TestCase;
 
 class EnvFileExistsTest extends TestCase
 {
     /** @test */
     public function it_checks_if_env_file_eixsts()
     {
-        $filesystem = \Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class);
 
         $filesystem->shouldReceive('exists')
             ->with(base_path('.env'))
@@ -22,7 +25,7 @@ class EnvFileExistsTest extends TestCase
         $this->assertFalse($check->check([]));
 
 
-        $filesystem = \Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class);
 
         $filesystem->shouldReceive('exists')
             ->with(base_path('.env'))

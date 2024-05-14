@@ -1,13 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Dotenv\Dotenv;
+use Dotenv\Environment\FactoryInterface;
 use Illuminate\Support\Collection;
+
+use function interface_exists;
+use function method_exists;
+
+use const PHP_EOL;
 
 class ExampleEnvironmentVariablesAreUpToDate implements Check
 {
-    /** @var Collection */
+    /** @var \Illuminate\Support\Collection */
     private $envVariables;
 
     /**
@@ -33,7 +41,7 @@ class ExampleEnvironmentVariablesAreUpToDate implements Check
             return $this->checkForDotEnvV4();
         }
 
-        if (interface_exists(\Dotenv\Environment\FactoryInterface::class)) {
+        if (interface_exists(FactoryInterface::class)) {
             $examples = Dotenv::create(base_path(), '.env.example');
             $actual = Dotenv::create(base_path(), '.env');
         } else {
@@ -51,6 +59,19 @@ class ExampleEnvironmentVariablesAreUpToDate implements Check
     }
 
     /**
+     * The error message to display in case the check does not pass.
+     *
+     * @param array $config
+     * @return string
+     */
+    public function message(array $config): string
+    {
+        return trans('self-diagnosis::checks.example_environment_variables_are_up_to_date.message', [
+            'variables' => $this->envVariables->implode(PHP_EOL),
+        ]);
+    }
+
+    /**
      * Perform the verification of this check for DotEnv v4.
      *
      * @return bool
@@ -65,18 +86,5 @@ class ExampleEnvironmentVariablesAreUpToDate implements Check
             ->keys();
 
         return $this->envVariables->isEmpty();
-    }
-
-    /**
-     * The error message to display in case the check does not pass.
-     *
-     * @param array $config
-     * @return string
-     */
-    public function message(array $config): string
-    {
-        return trans('self-diagnosis::checks.example_environment_variables_are_up_to_date.message', [
-            'variables' => $this->envVariables->implode(PHP_EOL),
-        ]);
     }
 }

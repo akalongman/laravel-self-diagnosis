@@ -1,26 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use BeyondCode\SelfDiagnosis\SystemFunctions;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+use function explode;
+use function in_array;
+
+use const PHP_EOL;
+
 class LocalesAreInstalled implements Check
 {
-    /** @var Collection */
+    /** @var \Illuminate\Support\Collection */
     protected $missingLocales;
 
     /** @var string|null */
     protected $message;
 
-    /** @var SystemFunctions */
+    /** @var \BeyondCode\SelfDiagnosis\SystemFunctions */
     protected $systemFunctions;
 
     /**
      * LocalesAreInstalled constructor.
      *
-     * @param SystemFunctions $systemFunctions
+     * @param \BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctions
      */
     public function __construct(SystemFunctions $systemFunctions)
     {
@@ -72,7 +79,7 @@ class LocalesAreInstalled implements Check
 
         $locales = explode("\n", $locales);
 
-        $this->missingLocales = $this->missingLocales->reject(function ($loc) use ($locales) {
+        $this->missingLocales = $this->missingLocales->reject(static function ($loc) use ($locales) {
             return in_array($loc, $locales);
         });
 

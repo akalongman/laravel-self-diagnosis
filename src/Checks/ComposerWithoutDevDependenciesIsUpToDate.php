@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use BeyondCode\SelfDiagnosis\Composer;
@@ -8,7 +10,7 @@ use Illuminate\Support\Str;
 
 class ComposerWithoutDevDependenciesIsUpToDate implements Check
 {
-    /** @var Composer */
+    /** @var \BeyondCode\SelfDiagnosis\Composer */
     private $composer;
 
     /** @var string */

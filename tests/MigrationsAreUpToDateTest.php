@@ -1,20 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
+use BeyondCode\SelfDiagnosis\Checks\MigrationsAreUpToDate;
+use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Foundation\Console\Kernel;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase;
-use BeyondCode\SelfDiagnosis\Checks\MigrationsAreUpToDate;
-use Illuminate\Contracts\Console\Kernel as KernelContract;
 
 class MigrationsAreUpToDateTest extends TestCase
 {
-    protected function resolveApplicationConsoleKernel($app)
-    {
-        $app->singleton(KernelContract::class, Kernel::class);
-    }
-
     /** @test */
     public function it_detects_that_migrations_are_up_to_date()
     {
@@ -39,5 +36,10 @@ class MigrationsAreUpToDateTest extends TestCase
             ->andReturn('CREATE TABLE foo');
 
         $this->assertFalse($check->check([]));
+    }
+
+    protected function resolveApplicationConsoleKernel($app)
+    {
+        $app->singleton(KernelContract::class, Kernel::class);
     }
 }

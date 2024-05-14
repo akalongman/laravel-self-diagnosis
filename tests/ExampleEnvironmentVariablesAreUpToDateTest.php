@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
-use Orchestra\Testbench\TestCase;
-use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
 use BeyondCode\SelfDiagnosis\Checks\ExampleEnvironmentVariablesAreUpToDate;
+use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
+use Orchestra\Testbench\TestCase;
+
+use const PHP_EOL;
 
 class ExampleEnvironmentVariablesAreUpToDateTest extends TestCase
 {
@@ -23,6 +27,6 @@ class ExampleEnvironmentVariablesAreUpToDateTest extends TestCase
         $check = new ExampleEnvironmentVariablesAreUpToDate();
 
         $this->assertFalse($check->check([]));
-        $this->assertSame('These environment variables are defined in your .env file, but are missing in your .env.example:'.PHP_EOL.'KEY_FOUR', $check->message([]));
+        $this->assertSame('These environment variables are defined in your .env file, but are missing in your .env.example:' . PHP_EOL . 'KEY_FOUR', $check->message([]));
     }
 }

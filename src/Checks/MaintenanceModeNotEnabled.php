@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 class MaintenanceModeNotEnabled implements Check

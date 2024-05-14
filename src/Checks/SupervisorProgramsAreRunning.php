@@ -1,29 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use BeyondCode\SelfDiagnosis\SystemFunctions;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+use function explode;
+use function preg_match;
+use function trim;
+
+use const PHP_EOL;
+
 class SupervisorProgramsAreRunning implements Check
 {
-    /** @var Collection */
+    protected const REGEX_SUPERVISORCTL_STATUS = '/^(\S+)\s+RUNNING\s+pid\s+(\d+),\s+uptime\s+(\d+):(\d+):(\d+)$/';
+
+    /** @var \Illuminate\Support\Collection */
     protected $notRunningPrograms;
 
     /** @var string|null */
     protected $message;
 
-    /** @var SystemFunctions */
+    /** @var \BeyondCode\SelfDiagnosis\SystemFunctions */
     protected $systemFunctions;
-
-    /** @var string */
-    protected const REGEX_SUPERVISORCTL_STATUS = '/^(\S+)\s+RUNNING\s+pid\s+(\d+),\s+uptime\s+(\d+):(\d+):(\d+)$/';
 
     /**
      * SupervisorProgramsAreRunning constructor.
      *
-     * @param SystemFunctions $systemFunctions
+     * @param \BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctions
      */
     public function __construct(SystemFunctions $systemFunctions)
     {
@@ -89,7 +96,7 @@ class SupervisorProgramsAreRunning implements Check
                     }
                 }
 
-                $this->notRunningPrograms = $this->notRunningPrograms->reject(function ($item) use ($matches) {
+                $this->notRunningPrograms = $this->notRunningPrograms->reject(static function ($item) use ($matches) {
                     return $item === $matches[1];
                 });
             }

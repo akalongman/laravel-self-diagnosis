@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Illuminate\Support\Facades\Artisan;
+use PDOException;
+
+use function strstr;
 
 class MigrationsAreUpToDate implements Check
 {
@@ -32,7 +37,7 @@ class MigrationsAreUpToDate implements Check
             $output = Artisan::output();
 
             return strstr($output, 'Nothing to migrate.');
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             $this->databaseError = $e->getMessage();
         }
 

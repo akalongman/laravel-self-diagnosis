@@ -1,14 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+use function extension_loaded;
+
+use const PHP_EOL;
+
 class PhpExtensionsAreDisabled implements Check
 {
-
-    /** @var Collection */
+    /** @var \Illuminate\Support\Collection */
     private $extensions;
 
     /**
@@ -31,7 +36,7 @@ class PhpExtensionsAreDisabled implements Check
     public function check(array $config): bool
     {
         $this->extensions = Collection::make(Arr::get($config, 'extensions', []));
-        $this->extensions = $this->extensions->reject(function ($ext) {
+        $this->extensions = $this->extensions->reject(static function ($ext) {
             return extension_loaded($ext) === false;
         });
 

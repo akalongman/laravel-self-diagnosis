@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
+use BeyondCode\SelfDiagnosis\Checks\LocalesAreInstalled;
 use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
 use BeyondCode\SelfDiagnosis\SystemFunctions;
 use Orchestra\Testbench\TestCase;
-use BeyondCode\SelfDiagnosis\Checks\LocalesAreInstalled;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class LocalesAreInstalledTest extends TestCase
 {
@@ -20,7 +21,7 @@ class LocalesAreInstalledTest extends TestCase
     /** @test */
     public function it_succeeds_when_no_locales_are_required()
     {
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
 
         $check = new LocalesAreInstalled($systemFunctionsMock);
@@ -34,7 +35,7 @@ class LocalesAreInstalledTest extends TestCase
     {
         $config = ['required_locales' => ['en_US', 'en_US.utf8', 'de_DE', 'de_DE.utf8', 'de_AT', 'de_AT.utf8']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -59,7 +60,7 @@ class LocalesAreInstalledTest extends TestCase
     {
         $config = ['required_locales' => ['en_US', 'en_US.utf8']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -78,7 +79,7 @@ class LocalesAreInstalledTest extends TestCase
     {
         $config = ['required_locales' => ['en_US', 'en_US.utf8']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -100,7 +101,7 @@ class LocalesAreInstalledTest extends TestCase
     {
         $config = ['required_locales' => ['en_US', 'en_US.utf8']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')
@@ -126,7 +127,7 @@ class LocalesAreInstalledTest extends TestCase
     {
         $config = ['required_locales' => ['en_US', 'en_US.utf8', 'de_DE', 'de_DE.utf8', 'de_AT', 'de_AT.utf8']];
 
-        /** @var MockObject|SystemFunctions $systemFunctionsMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\BeyondCode\SelfDiagnosis\SystemFunctions $systemFunctionsMock */
         $systemFunctionsMock = $this->createMock(SystemFunctions::class);
         $systemFunctionsMock->expects($this->once())
             ->method('isFunctionAvailable')

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use DB;
 use Illuminate\Support\Arr;
+use Throwable;
 
 class DatabaseCanBeAccessed implements Check
 {
@@ -38,7 +41,7 @@ class DatabaseCanBeAccessed implements Check
             }
 
             return true;
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             $this->message = $e->getMessage();
         }
 

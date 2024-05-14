@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Checks;
 
 use Illuminate\Filesystem\Filesystem;
+use Throwable;
 
 class StorageDirectoryIsLinked implements Check
 {
-    /** @var Filesystem */
+    /** @var \Illuminate\Filesystem\Filesystem */
     private $filesystem;
 
     public function __construct(Filesystem $filesystem)
@@ -46,7 +49,7 @@ class StorageDirectoryIsLinked implements Check
     {
         try {
             return $this->filesystem->isDirectory(public_path('storage'));
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }

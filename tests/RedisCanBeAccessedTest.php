@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
+use BeyondCode\SelfDiagnosis\Checks\RedisCanBeAccessed;
 use BeyondCode\SelfDiagnosis\SelfDiagnosisServiceProvider;
 use Illuminate\Redis\Connections\Connection;
 use Illuminate\Support\Facades\Redis;
 use Orchestra\Testbench\TestCase;
-use BeyondCode\SelfDiagnosis\Checks\RedisCanBeAccessed;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class RedisCanBeAccessedTest extends TestCase
 {
@@ -25,7 +26,7 @@ class RedisCanBeAccessedTest extends TestCase
         $check = app(RedisCanBeAccessed::class);
         $this->assertFalse($check->check([]));
 
-        /** @var MockObject|Connection $connectionMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\Illuminate\Redis\Connections\Connection $connectionMock */
         $connectionMock = $this->getMockBuilder(Connection::class)
             ->setMethods(['connect', 'isConnected', 'createSubscription']) // we have to declare the abstract method createSubscription
             ->getMock();
@@ -54,7 +55,7 @@ class RedisCanBeAccessedTest extends TestCase
         $check = app(RedisCanBeAccessed::class);
         $this->assertFalse($check->check($config));
 
-        /** @var MockObject|Connection $connectionMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\Illuminate\Redis\Connections\Connection $connectionMock */
         $connectionMock = $this->getMockBuilder(Connection::class)
             ->setMethods(['connect', 'isConnected', 'createSubscription']) // we have to declare the abstract method createSubscription
             ->getMock();
@@ -77,7 +78,7 @@ class RedisCanBeAccessedTest extends TestCase
         $check = app(RedisCanBeAccessed::class);
         $this->assertFalse($check->check([]));
 
-        /** @var MockObject|Connection $connectionMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\Illuminate\Redis\Connections\Connection $connectionMock */
         $connectionMock = $this->getMockBuilder(Connection::class)
             ->setMethods(['connect', 'isConnected', 'createSubscription']) // we have to declare the abstract method createSubscription
             ->getMock();
@@ -107,7 +108,7 @@ class RedisCanBeAccessedTest extends TestCase
         $check = app(RedisCanBeAccessed::class);
         $this->assertFalse($check->check($config));
 
-        /** @var MockObject|Connection $connectionMock */
+        /** @var \PHPUnit\Framework\MockObject\MockObject|\Illuminate\Redis\Connections\Connection $connectionMock */
         $connectionMock = $this->getMockBuilder(Connection::class)
             ->setMethods(['connect', 'isConnected', 'createSubscription']) // we have to declare the abstract method createSubscription
             ->getMock();

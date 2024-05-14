@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis\Tests;
 
 use BeyondCode\SelfDiagnosis\Checks\HorizonIsRunning;

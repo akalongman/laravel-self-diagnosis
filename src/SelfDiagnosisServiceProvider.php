@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\SelfDiagnosis;
 
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +16,6 @@ class SelfDiagnosisServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../translations', 'self-diagnosis');
 
         if ($this->app->runningInConsole()) {
-
             $this->publishes([
                 __DIR__ . '/../translations' => resource_path('lang/vendor/self-diagnosis'),
             ], 'translations');
