@@ -115,6 +115,14 @@ return [
         'message' => 'Your routes should not be cached during development. Call "php artisan route:clear" to clear the route cache.',
         'name'    => 'Routes are not cached',
     ],
+    'localized_routes_are_cached'                     => [
+        'message' => 'Your localized routes should be cached in production for better performance. Call "php artisan route:trans:cache" to create the localized route cache.',
+        'name'    => 'Localized routes are cached',
+    ],
+    'localized_routes_are_not_cached'                 => [
+        'message' => 'Your localized routes should not be cached during development. Call "php artisan route:trans:clear" to clear the localized route cache.',
+        'name'    => 'Localized routes are not cached',
+    ],
     'servers_are_pingable'                            => [
         'message' => "The server ':host' (port: :port) is not reachable (timeout after :timeout seconds).",
         'name'    => 'Required servers are pingable',
