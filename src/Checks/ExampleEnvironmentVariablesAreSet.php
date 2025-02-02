@@ -15,8 +15,7 @@ use const PHP_EOL;
 
 class ExampleEnvironmentVariablesAreSet implements Check
 {
-    /** @var \Illuminate\Support\Collection */
-    private $envVariables;
+    private Collection $envVariables;
 
     /**
      * The name of the check.

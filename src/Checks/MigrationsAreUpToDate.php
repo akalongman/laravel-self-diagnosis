@@ -7,11 +7,11 @@ namespace BeyondCode\SelfDiagnosis\Checks;
 use Illuminate\Support\Facades\Artisan;
 use PDOException;
 
-use function strstr;
+use function str_contains;
 
 class MigrationsAreUpToDate implements Check
 {
-    private $databaseError = null;
+    private ?string $databaseError = null;
 
     /**
      * The name of the check.
@@ -36,7 +36,7 @@ class MigrationsAreUpToDate implements Check
             Artisan::call('migrate', ['--pretend' => 'true', '--force' => 'true']);
             $output = Artisan::output();
 
-            return strstr($output, 'Nothing to migrate.');
+            return str_contains($output, 'Nothing to migrate.');
         } catch (PDOException $e) {
             $this->databaseError = $e->getMessage();
         }

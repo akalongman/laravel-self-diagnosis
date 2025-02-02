@@ -11,7 +11,7 @@ class SelfDiagnosisServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadTranslationsFrom(__DIR__ . '/../translations', 'self-diagnosis');
 
@@ -29,7 +29,7 @@ class SelfDiagnosisServiceProvider extends ServiceProvider
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'self-diagnosis');
 

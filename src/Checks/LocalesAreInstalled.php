@@ -15,14 +15,9 @@ use const PHP_EOL;
 
 class LocalesAreInstalled implements Check
 {
-    /** @var \Illuminate\Support\Collection */
-    protected $missingLocales;
-
-    /** @var string|null */
-    protected $message;
-
-    /** @var \BeyondCode\SelfDiagnosis\SystemFunctions */
-    protected $systemFunctions;
+    protected Collection $missingLocales;
+    protected ?string $message;
+    protected SystemFunctions $systemFunctions;
 
     /**
      * LocalesAreInstalled constructor.

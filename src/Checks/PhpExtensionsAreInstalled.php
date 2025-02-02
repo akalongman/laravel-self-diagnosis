@@ -19,12 +19,8 @@ use const PHP_EOL;
 class PhpExtensionsAreInstalled implements Check
 {
     private const EXT = 'ext-';
-
-    /** @var \Illuminate\Filesystem\Filesystem */
-    private $filesystem;
-
-    /** @var \Illuminate\Support\Collection */
-    private $extensions;
+    private Filesystem $filesystem;
+    private Collection $extensions;
 
     public function __construct(Filesystem $filesystem)
     {

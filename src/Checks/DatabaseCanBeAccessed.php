@@ -10,7 +10,7 @@ use Throwable;
 
 class DatabaseCanBeAccessed implements Check
 {
-    private $message;
+    private string $message;
 
     /**
      * The name of the check.

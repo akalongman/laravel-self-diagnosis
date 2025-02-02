@@ -8,8 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class EnvFileExists implements Check
 {
-    /** @var \Illuminate\Filesystem\Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     public function __construct(Filesystem $filesystem)
     {

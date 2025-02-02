@@ -13,8 +13,7 @@ use const PHP_EOL;
 
 class PhpExtensionsAreDisabled implements Check
 {
-    /** @var \Illuminate\Support\Collection */
-    private $extensions;
+    private Collection $extensions;
 
     /**
      * The name of the check.

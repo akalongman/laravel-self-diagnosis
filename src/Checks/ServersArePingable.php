@@ -18,9 +18,7 @@ use const PHP_EOL;
 class ServersArePingable implements Check
 {
     protected const DEFAULT_TIMEOUT = 5;
-
-    /** @var \Illuminate\Support\Collection */
-    protected $notReachableServers;
+    protected Collection $notReachableServers;
 
     /**
      * The name of the check.

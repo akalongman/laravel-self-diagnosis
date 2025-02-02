@@ -12,11 +12,8 @@ use const PHP_EOL;
 
 class DirectoriesHaveCorrectPermissions implements Check
 {
-    /** @var \Illuminate\Filesystem\Filesystem */
-    private $filesystem;
-
-    /** @var \Illuminate\Support\Collection */
-    private $paths;
+    private Filesystem $filesystem;
+    private Collection $paths;
 
     /**
      * DirectoriesHaveCorrectPermissions constructor.

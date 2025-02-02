@@ -17,15 +17,9 @@ use const PHP_EOL;
 class SupervisorProgramsAreRunning implements Check
 {
     protected const REGEX_SUPERVISORCTL_STATUS = '/^(\S+)\s+RUNNING\s+pid\s+(\d+),\s+uptime\s+(\d+):(\d+):(\d+)$/';
-
-    /** @var \Illuminate\Support\Collection */
-    protected $notRunningPrograms;
-
-    /** @var string|null */
-    protected $message;
-
-    /** @var \BeyondCode\SelfDiagnosis\SystemFunctions */
-    protected $systemFunctions;
+    protected Collection $notRunningPrograms;
+    protected ?string $message;
+    protected SystemFunctions $systemFunctions;
 
     /**
      * SupervisorProgramsAreRunning constructor.

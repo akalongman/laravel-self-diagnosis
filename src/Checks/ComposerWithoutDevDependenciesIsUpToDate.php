@@ -10,11 +10,8 @@ use Illuminate\Support\Str;
 
 class ComposerWithoutDevDependenciesIsUpToDate implements Check
 {
-    /** @var \BeyondCode\SelfDiagnosis\Composer */
-    private $composer;
-
-    /** @var string */
-    private $output;
+    private Composer $composer;
+    private string $output;
 
     public function __construct(Composer $composer)
     {

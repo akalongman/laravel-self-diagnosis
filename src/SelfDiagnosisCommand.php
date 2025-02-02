@@ -29,9 +29,9 @@ class SelfDiagnosisCommand extends Command
      */
     protected $description = 'Perform application self diagnosis.';
 
-    private $messages = [];
+    private array $messages = [];
 
-    public function handle()
+    public function handle(): int
     {
         $this->runChecks(config('self-diagnosis.checks', []), trans('self-diagnosis::commands.self_diagnosis.common_checks'));
 
@@ -60,7 +60,7 @@ class SelfDiagnosisCommand extends Command
         return 0;
     }
 
-    protected function runChecks(array $checks, string $title)
+    protected function runChecks(array $checks, string $title): void
     {
         $max = count($checks);
         $current = 1;
@@ -91,7 +91,7 @@ class SelfDiagnosisCommand extends Command
         $this->output->writeln('');
     }
 
-    protected function runCheck(Check $check, array $config)
+    protected function runCheck(Check $check, array $config): void
     {
         if ($check->check($config)) {
             $this->output->write('<fg=green>✔</fg=green>');
