@@ -8,7 +8,7 @@ use Throwable;
 
 class ElasticsearchCanBeAccessed implements Check
 {
-    private ?string $message;
+    private ?string $message = null;
 
     /**
      * The name of the check.

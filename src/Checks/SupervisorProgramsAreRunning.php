@@ -18,7 +18,7 @@ class SupervisorProgramsAreRunning implements Check
 {
     protected const REGEX_SUPERVISORCTL_STATUS = '/^(\S+)\s+RUNNING\s+pid\s+(\d+),\s+uptime\s+(\d+):(\d+):(\d+)$/';
     protected Collection $notRunningPrograms;
-    protected ?string $message;
+    protected ?string $message = null;
     protected SystemFunctions $systemFunctions;
 
     /**

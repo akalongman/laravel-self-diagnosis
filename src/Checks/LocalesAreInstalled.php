@@ -16,7 +16,7 @@ use const PHP_EOL;
 class LocalesAreInstalled implements Check
 {
     protected Collection $missingLocales;
-    protected ?string $message;
+    protected ?string $message = null;
     protected SystemFunctions $systemFunctions;
 
     /**

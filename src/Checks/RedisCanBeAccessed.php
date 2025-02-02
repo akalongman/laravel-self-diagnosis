@@ -15,7 +15,7 @@ use function trans;
 
 class RedisCanBeAccessed implements Check
 {
-    private ?string $message;
+    private ?string $message = null;
 
     /**
      * The name of the check.
