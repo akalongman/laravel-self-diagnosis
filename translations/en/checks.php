@@ -51,6 +51,10 @@ return [
         'message' => 'The .env file does not exist. Please copy your .env.example file as .env and adjust accordingly.',
         'name'    => 'The environment file exists',
     ],
+    'example_environment_variables_are_set' => [
+        'message' => 'These environment variables are missing in your .env file, but are defined in your .env.example:' . PHP_EOL . ':variables',
+        'name' => 'The example environment variables are set',
+    ],
     'example_environment_variables_are_set'           => [
         'message' => 'These environment variables are missing in your .env file, but are defined in your .env.example:' . PHP_EOL . ':variables',
         'name'    => 'The example environment variables are set',
